@@ -19,7 +19,8 @@
   priv = {
       mid: false,
       mh: false,
-      mw: false
+      mw: false,
+      vertcalc: 0
   };
 
   function Plugin ( element, options ) {
@@ -65,9 +66,14 @@
         var orig = this;
           orig.vars.onOpen();
         $(this.vars.mid).stop().fadeIn('fast');
-        $(this.vars.mid + ' .modal').stop().css('top', orig.vars.vert - 3 +'%');
+        $('.modalholder').css('height',$(document).height() + 'px');
+        orig.vars.vertcalc = ((orig.vars.vert / 100) * $(window).height()) + ($(document).scrollTop());
+        if(orig.vars.vertcalc < $(this.vars.mid + ' .modal').outerHeight() / 2){
+          orig.vars.vertcalc = $(this.vars.mid + ' .modal').outerHeight() / 2;
+        }
+        $(this.vars.mid + ' .modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
         $(this.vars.mid + ' .modal').stop().animate({
-                top: orig.vars.vert + '%'
+                top: orig.vars.vertcalc + 'px'
             }, this.vars.speed, this.vars.easing);
         this.calcMargin();
           $(this.vars.mid + ' .modal').css('left','50%');
@@ -83,7 +89,7 @@
           orig.vars.onClose();
           $(this.vars.mid).stop().fadeOut('fast');
           $(this.vars.mid + ' .modal').stop().animate({
-              top: orig.vars.vert + 3 + '%'
+              top: orig.vars.vertcalc + 10 + 'px'
           }, this.vars.speed, this.vars.easing);
       },
 

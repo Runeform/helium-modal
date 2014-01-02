@@ -16,8 +16,7 @@
    Helium Modal styles
    ========================================================================== */
 .modalholder{
-  position: fixed;
-  height:100%;
+  position: absolute;
   width:100%;
   background-color: rgba(0,0,0,0.6);
   z-index: 2000;
@@ -26,9 +25,8 @@
 .modalholder .modal{
   position: absolute;
   left: -9999px;
-  background-color: rgba(255,255,255,0.4);
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 5px;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 }
 .modalholder .modal a.close{
@@ -42,10 +40,9 @@
   line-height: 20px;
   color: #222;
 }
-
         </style>    
     </head>
-    <body>
+    <body style="margin:0;">
 
     <div id="modalid" class="modalholder">
         <div class="modal">
