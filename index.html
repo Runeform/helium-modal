@@ -109,13 +109,13 @@ textarea:focus{outline: none; background-color: #444;}
     <h2>Usage:</h2>
     <h3>1: include required files</h3>
     <p>include the following scripts as follows before the end of the BODY tag</p>
-<textarea name="" style="height:45px;">
+<textarea readonly name="" style="height:45px;">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/helium.mutate.js"></script>
 <script src="js/helium.modal.js"></script></textarea>
     <h3>2: Add required HTML</h3>
     <p>add the following customizable modal template after your opening BODY tag</p>
-    <textarea name="" style="height:85px;">
+    <textarea readonly name="" style="height:85px;">
 <div id="your-modal-id" class="modalholder">
     <div class="modal">
     content for your modal
@@ -123,11 +123,11 @@ textarea:focus{outline: none; background-color: #444;}
     </div>
 </div></textarea>
     <p>use the <em>data-mid</em> custom attribute on the link that you wish to trigger your modal</p>
-    <textarea name="" style="height:20px;">
+    <textarea readonly name="" style="height:20px;">
     <a href="" data-mid="your-modal-id">your button text</a></textarea>
     <h3>3: Add CSS</h3>
     <p>Add the following CSS in main.css (or any desired css location)</p>
-    <textarea name="" style="height:490px;">
+    <textarea readonly name="" style="height:490px;">
 /* ====================================================================
    Helium Modal styles
    ==================================================================== */
@@ -167,7 +167,7 @@ textarea:focus{outline: none; background-color: #444;}
     </textarea>
     <h3>4: initialize</h3>
     <p>Place the follow before the end of the BODY tag to initialize all modals</p>
-    <textarea name="" style="height:180px;">
+    <textarea readonly name="" style="height:180px;">
         <script type="text/javascript" charset="utf-8">
         $(function() {
           $("*[data-mid]").each( function(){
@@ -183,7 +183,7 @@ textarea:focus{outline: none; background-color: #444;}
         </script></textarea>
     <h3>Alternatives:  "I want an additional close or cancel button in my modal"</h3>
     <p>just use the "close2" class on any element in your modal that should act as a close link. Like so&hellip;</p>
-    <textarea name="" style="height:100px;">
+    <textarea readonly name="" style="height:100px;">
 <div id="your-modal-id" class="modalholder">
     <div class="modal">
     content for your modal<br>
@@ -193,7 +193,7 @@ textarea:focus{outline: none; background-color: #444;}
 </div></textarea>
     <h3>Alternatives:  "I want to open or close my modal via javascript"</h3>
     <p>use the following jQuery inside any event</p>
-    <textarea name="" style="height:70px;">
+    <textarea readonly name="" style="height:70px;">
 // to open ...
 $('*[data-mid="your-modal-id"]').heliumModal('openModal');
 
@@ -201,7 +201,7 @@ $('*[data-mid="your-modal-id"]').heliumModal('openModal');
 $('*[data-mid="your-modal-id"]').heliumModal('closeModal');</textarea>
       <h3>Alternatives: "I dont want a open link" (e.g. an error modal)</h3>
       <p>In this case add the data-mid attribute to the same element as "your-modal-id" in your HTML and trigger your modal via javascript (as described above)</p>
-          <textarea name="" style="height:85px;">
+          <textarea readonly name="" style="height:85px;">
 <div id="your-modal-id" data-mid="your-modal-id" class="modalholder">
     <div class="modal">
     content for your modal
@@ -210,7 +210,7 @@ $('*[data-mid="your-modal-id"]').heliumModal('closeModal');</textarea>
 </div></textarea>
     <h3>Alternatives:  "I want to initialize my modals separately"</h3>
     <p>If you want a different initialization for each modal just remove the "each" wrapper from the initialization script like so&hellip;</p>
-    <textarea name="" style="height:180px;">
+    <textarea readonly name="" style="height:180px;">
 <script type="text/javascript" charset="utf-8">
 $(function() {
   // repeat for each of your modals ===============================
