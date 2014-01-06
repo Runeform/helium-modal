@@ -46,7 +46,7 @@
           return false;
         });
 
-        $(this.vars.mid + ', ' + this.vars.mid + ' .modal a.close').click( function(event){ 
+        $(this.vars.mid + ', ' + this.vars.mid + ' .modal a.close , ' + this.vars.mid + ' .modal .close2').click( function(event){ 
           orig.closeModal();
           return false;
         }).children().click( function(event){
