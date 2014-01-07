@@ -115,7 +115,7 @@ a.selector{ font-size: 12px; color:#47b; text-decoration: none; font-weight: bol
     <p>include the following scripts as follows before the end of the BODY tag</p>
 <a href="" class="selector" title="">&#8595; select all</a>
 <textarea readonly name="" style="height:45px;">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/helium.mutate.js"></script>
 <script src="js/helium.modal.js"></script></textarea>
     <h3>2: Add required HTML</h3>
@@ -237,7 +237,7 @@ $(function() {
   // end repeat ===================================================
 });
 </script></textarea>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
         <script src="js/helium.mutate.js"></script>
         <script src="js/helium.modal.js"></script>
@@ -252,12 +252,11 @@ $(function() {
               onClose: function(){ }
             });        
           });  
-
+        });
           $('.selector').click(function(){
             $(this).next().focus().select();
             return false;
           });
-        });
         </script>
 
     </body>
