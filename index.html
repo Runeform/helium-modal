@@ -52,7 +52,7 @@
        Helium Modal styles
        ========================================================================== */
     /* === essential styles === */
-    .modalholder{
+    .helium-modal{
         position: absolute;
         top:0;
         left:0;
@@ -61,17 +61,17 @@
         z-index: 2000;
         display: none;
         }
-    .modalholder .modal{
+    .helium-modal .modal{
         position: absolute;
         left: -9999px;
         }
     /* === customizable styles === */
-    .modalholder .modal{
+    .helium-modal .modal{
         background-color: #ffffff;
         padding: 20px;
         box-shadow: 0 4px 4px rgba(0,0,0,0.2);
         }
-    .modalholder .modal a.close{
+    .helium-modal .modal a.x-button{
         position: absolute;
         top:3px;
         right:6px;
@@ -85,17 +85,17 @@
     </style>
 </head>
 <body style="margin:0;">
-    <div id="modalid" class="modalholder">
+    <div id="modalid" class="helium-modal">
         <div class="modal">
             content for modal #1
-            <a href="" class="close">&times;</a>
+            <a href="" class="close x-button">&times;</a>
         </div>
     </div>
-    <div id="modalid2" class="modalholder">
+    <div id="modalid2" class="helium-modal">
         <div class="modal">
             content for modal #2<br>
-            <a href="" title="" class="close2">additional close link</a>
-            <a href="" class="close">&times;</a>
+            <a href="" title="" class="close">additional close link</a>
+            <a href="" class="close x-button">&times;</a>
         </div>
     </div>
     <h1>Helium-Modal</h1>
@@ -112,6 +112,7 @@
     <h2>Examples:</h2>
     <p>
     <a href="" data-mid="modalid" class="btn">open modal #1</a>
+    <a href="" data-mid="modalid" class="btn">open modal #1 again</a>
     <a href="" data-mid="modalid2" class="btn">open modal #2</a>
     </p>
     <h2>Usage:</h2>
@@ -126,13 +127,13 @@
     <p>add the following customizable modal template after your opening BODY tag</p>
     <a href="" class="selector" title="">&#8595; select all</a>
 <textarea readonly name="" style="height:85px;">
-<div id="your-modal-id" class="modalholder">
+<div id="your-modal-id" class="helium-modal">
     <div class="modal">
         content for your modal
-        <a href="" class="close">&amp;times;</a>
+        <a href="" class="close x-button">&amp;times;</a>
     </div>
 </div></textarea>
-    <p>use the <em>data-mid</em> custom attribute on the link that you wish to trigger your modal</p>
+    <p>use the <em>data-mid</em> custom attribute on any link that you wish to trigger your modal</p>
     <a href="" class="selector" title="">&#8595; select all</a>
 <textarea readonly name="" style="height:20px;">
 <a href="" data-mid="your-modal-id">your button text</a></textarea>
@@ -144,7 +145,7 @@
    Helium Modal styles
    ==================================================================== */
 /* === essential styles === */
-.modalholder{
+.helium-modal{
     position: absolute;
     top:0;
     left:0;
@@ -153,17 +154,17 @@
     z-index: 2000;
     display: none;
     }
-.modalholder .modal{
+.helium-modal .modal{
     position: absolute;
     left: -9999px;
     }
 /* === customizable styles === */
-.modalholder .modal{
+.helium-modal .modal{
     background-color: #ffffff;
     padding: 20px;
     box-shadow: 0 4px 4px rgba(0,0,0,0.2);
     }
-.modalholder .modal a.close{
+.helium-modal .modal a.x-button{
     position: absolute;
     top:3px;
     right:6px;
@@ -181,7 +182,7 @@
 <textarea readonly name="" style="height:180px;">
 <script type="text/javascript" charset="utf-8">
 $(function() {
-    $("*[data-mid]").each( function(){
+    $(".helium-modal").each( function(){
         $(this).heliumModal({
             vert: 50,
             speed: 500,
@@ -193,14 +194,14 @@ $(function() {
 });
 </script></textarea>
     <h3>Alternatives:  "I want an additional close or cancel button in my modal"</h3>
-    <p>just use the "close2" class on any element in your modal that should act as a close link. Like so&hellip;</p>
+    <p>just use the "close" class on any element in your modal that should act as a close link. Like so&hellip;</p>
     <a href="" class="selector" title="">&#8595; select all</a>
 <textarea readonly name="" style="height:100px;">
-<div id="your-modal-id" class="modalholder">
+<div id="your-modal-id" class="helium-modal">
     <div class="modal">
         content for your modal<br>
-        <a href="" title="" class="close2">additional close link</a>
-        <a href="" class="close">&amp;times;</a>
+        <a href="" title="" class="close">additional close link</a>
+        <a href="" class="close x-button">&amp;times;</a>
     </div>
 </div></textarea>
     <h3>Alternatives:  "I want to open or close my modal via javascript"</h3>
@@ -208,19 +209,9 @@ $(function() {
     <a href="" class="selector" title="">&#8595; select all</a>
 <textarea readonly name="" style="height:70px;">
 // to open ...
-$('*[data-mid="your-modal-id"]').heliumModal('openModal');
+$('#your-modal-id').heliumModal('openModal');
 // to close ...
-$('*[data-mid="your-modal-id"]').heliumModal('closeModal');</textarea>
-    <h3>Alternatives: "I dont want a open link" (e.g. an error modal)</h3>
-    <p>In this case add the data-mid attribute to the same element as "your-modal-id" in your HTML and trigger your modal via javascript (as described above)</p>
-    <a href="" class="selector" title="">&#8595; select all</a>
-<textarea readonly name="" style="height:85px;">
-<div id="your-modal-id" data-mid="your-modal-id" class="modalholder">
-    <div class="modal">
-        content for your modal
-        <a href="" class="close">&amp;times;</a>
-    </div>
-</div></textarea>
+$('#your-modal-id').heliumModal('closeModal');</textarea>
     <h3>Alternatives:  "I want to initialize my modals separately"</h3>
     <p>If you want a different initialization for each modal just remove the "each" wrapper from the initialization script like so&hellip;</p>
     <a href="" class="selector" title="">&#8595; select all</a>
@@ -228,7 +219,7 @@ $('*[data-mid="your-modal-id"]').heliumModal('closeModal');</textarea>
 <script type="text/javascript" charset="utf-8">
 $(function() {
     // repeat for each of your modals ===============================
-    $("*[data-mid='your-modal-id-1']").heliumModal({
+    $('#your-modal-id-1').heliumModal({
         vert: 50,
         speed: 500,
         easing: 'swing',
@@ -244,7 +235,7 @@ $(function() {
     <script src="js/helium.modal.js"></script>
     <script type="text/javascript" charset="utf-8">
     $(function() {
-        $("*[data-mid]").each( function(){
+        $(".helium-modal").each( function(){
             $(this).heliumModal({
                 vert: 50,
                 speed: 500,

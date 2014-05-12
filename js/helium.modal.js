@@ -17,7 +17,6 @@
       onClose: function(){ }
   },
   priv = {
-      mid: false,
       mh: false,
       mw: false,
       vertcalc: 0
@@ -39,21 +38,28 @@
 //============================================================================
       init: function () {
         var orig = this;
-        this.vars.mid = '#' + this.element.getAttribute("data-mid");
 
-        $(this.element).click( function(){
+        $('*[data-mid="' + $(this.element).attr('id') + '"]').click( function(){
           orig.openModal();
           return false;
         });
 
-        $(this.vars.mid + ', ' + this.vars.mid + ' .modal a.close , ' + this.vars.mid + ' .modal .close2').click( function(event){ 
+        $(this.element).click( function(event){ 
           orig.closeModal();
           return false;
         }).children().click( function(event){
           event.stopPropagation();
         });
+        $(this.element).find('.close').click( function(event){ 
+          orig.closeModal();
+          return false;
+        })
 
-        $(this.vars.mid + ' .modal').mutate('height width', function(el,info) { 
+        $(this.element).find('.modal').mutate('height width', function(el,info) { 
+          orig.calcMargin();
+          orig.centerModal();
+        });
+        $(window).on('resize', function(){
           orig.calcMargin();
           orig.centerModal();
         });
@@ -65,20 +71,20 @@
       openModal: function () {         
         var orig = this;
           orig.vars.onOpen();
-        $(this.vars.mid).stop().fadeIn('fast');
-        $('.modalholder').css('height',$(document).height() + 'px');
+        $(orig.element).stop().fadeIn('fast');
+        $(orig.element).css('height',$(document).height() + 'px');
         orig.vars.vertcalc = ((orig.vars.vert / 100) * $(window).height()) + ($(document).scrollTop());
-        if(orig.vars.vertcalc < $(this.vars.mid + ' .modal').outerHeight() / 2){
-          orig.vars.vertcalc = $(this.vars.mid + ' .modal').outerHeight() / 2;
+        if(orig.vars.vertcalc < $(this.element).find('.modal').outerHeight() / 2){
+          orig.vars.vertcalc = $(this.element).find('.modal').outerHeight() / 2;
         }
-        $(this.vars.mid + ' .modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
-        $(this.vars.mid + ' .modal').stop().animate({
+        $(this.element).find('.modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
+        $(this.element).find('.modal').stop().animate({
                 top: orig.vars.vertcalc + 'px'
             }, this.vars.speed, this.vars.easing);
         this.calcMargin();
-          $(this.vars.mid + ' .modal').css('left','50%');
-          $(this.vars.mid + ' .modal').css('margin-top', '-' + this.vars.mh + 'px');
-          $(this.vars.mid + ' .modal').css('margin-left', '-' + this.vars.mw + 'px');
+          $(this.element).find('.modal').css('left','50%');
+          $(this.element).find('.modal').css('margin-top', '-' + this.vars.mh + 'px');
+          $(this.element).find('.modal').css('margin-left', '-' + this.vars.mw + 'px');
       },
 
 //============================================================================
@@ -86,11 +92,11 @@
 //============================================================================
       closeModal: function () {               
         var orig = this;  
-          orig.vars.onClose();
-          $(this.vars.mid).stop().fadeOut('fast');
-          $(this.vars.mid + ' .modal').stop().animate({
+          $(orig.element).stop().fadeOut('fast');
+          $(this.element).find('.modal').stop().animate({
               top: orig.vars.vertcalc + 10 + 'px'
           }, this.vars.speed, this.vars.easing);
+          orig.vars.onClose();
       },
 
 //============================================================================
@@ -98,10 +104,8 @@
 // (animates margins to recenter modal)
 //============================================================================
       centerModal: function () {        
-          $(this.vars.mid + ' .modal').stop().animate({
-              'margin-top': '-' + this.vars.mh + 'px',
-              'margin-left': '-' + this.vars.mw + 'px'
-          },300);        
+              $(this.element).find('.modal').stop().css('margin-top', '-' + this.vars.mh + 'px');
+              $(this.element).find('.modal').stop().css('margin-left', '-' + this.vars.mw + 'px');
       },
 
 //============================================================================
@@ -109,8 +113,8 @@
 // (calculates margin offsets for modal)
 //============================================================================
       calcMargin: function () {
-        this.vars.mh = $(this.vars.mid + ' .modal').outerHeight() / 2;
-        this.vars.mw = $(this.vars.mid + ' .modal').outerWidth() / 2;          
+        this.vars.mh = $(this.element).find('.modal').outerHeight() / 2;
+        this.vars.mw = $(this.element).find('.modal').outerWidth() / 2;          
       }
   };
 
