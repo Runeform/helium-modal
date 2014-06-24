@@ -104,8 +104,8 @@
 // (animates margins to recenter modal)
 //============================================================================
       centerModal: function () {        
-              $(this.element).find('.modal').stop().css('margin-top', '-' + this.vars.mh + 'px');
-              $(this.element).find('.modal').stop().css('margin-left', '-' + this.vars.mw + 'px');
+              $(this.element).find('.modal').stop().css('margin-top', '-' + this.vars.mh.toFixed() + 'px');
+              $(this.element).find('.modal').stop().css('margin-left', '-' + this.vars.mw.toFixed() + 'px');
       },
 
 //============================================================================
