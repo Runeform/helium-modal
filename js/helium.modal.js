@@ -1,4 +1,5 @@
 /* 
+ * Helium Modal v1.5
  * Developed by Harun eggleton - Under MIT License
  * jquery 1.8.3
  * jQuery-mutate (https://github.com/jqui-dot-net/jQuery-mutate)
@@ -14,12 +15,15 @@
       speed: 500,
       easing: 'swing',
       onOpen: function(){ },
-      onClose: function(){ }
+      afterOpen: function(){ },
+      onClose: function(){ },
+      trapFocus: true
   },
   priv = {
       mh: false,
       mw: false,
-      vertcalc: 0
+      vertcalc: 0,
+      tabbable: 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex]:not([tabindex="-1"]), *[contenteditable]',
   };
 
   function Plugin ( element, options ) {
@@ -42,6 +46,7 @@
         $('*[data-mid="' + $(this.element).attr('id') + '"]').click( function(){
           orig.openModal();
           return false;
+
         });
 
         $(this.element).click( function(event){ 
@@ -85,6 +90,8 @@
           $(this.element).find('.modal').css('left','50%');
           $(this.element).find('.modal').css('margin-top', '-' + this.vars.mh + 'px');
           $(this.element).find('.modal').css('margin-left', '-' + this.vars.mw + 'px');
+        if(this.vars.trapFocus){orig.focusControl()}
+        $(orig.element).promise().done(orig.vars.afterOpen());
       },
 
 //============================================================================
@@ -108,6 +115,35 @@
               $(this.element).find('.modal').stop().css('margin-left', '-' + this.vars.mw.toFixed() + 'px');
       },
 
+//============================================================================
+// focusControl  
+// (bring focus to close button and trap focus inside modal while its open)
+//============================================================================
+      focusControl: function () {  
+        var orig = this;  
+        var firstTabbable = $(this.element).find(this.vars.tabbable).filter(':visible').first();
+        var lastTabbable = $(this.element).find(this.vars.tabbable).filter(':visible').last();        
+        lastTabbable.focusin(function(){
+            lastTabbable.on('keydown',function(event){
+            //If the key pressed is 9 (tab), focus first
+            if (event.which == 9 && !event.shiftKey){
+                    firstTabbable.focus();
+                    return false;
+            }
+            });
+        }).focusout(lastTabbable.off('keydown'));
+        firstTabbable.focusin(function(){
+            firstTabbable.on('keydown',function(event){
+            //If the key pressed is 9 (tab), focus first
+            if (event.which == 9 && event.shiftKey){
+                    lastTabbable.focus();
+                    return false;
+            }
+            });
+        }).focusout(firstTabbable.off('keydown'));
+        $(this.element).find('.x-button').focus();
+      },
+ 
 //============================================================================
 // calcMargin function.  
 // (calculates margin offsets for modal)
@@ -142,3 +178,5 @@
         }
     };
 })( jQuery, window, document );
+
+
