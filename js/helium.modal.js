@@ -24,6 +24,7 @@
       mw: false,
       vertcalc: 0,
       tabbable: 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex]:not([tabindex="-1"]), *[contenteditable]',
+      originalFocus: false
   };
 
   function Plugin ( element, options ) {
@@ -75,7 +76,8 @@
 //============================================================================
       openModal: function () {         
         var orig = this;
-          orig.vars.onOpen();
+        orig.vars.originalFocus =  $(':focus');
+        orig.vars.onOpen();
         $(orig.element).stop().fadeIn('fast');
         $(orig.element).css('height',$(document).height() + 'px');
         orig.vars.vertcalc = ((orig.vars.vert / 100) * $(window).height()) + ($(document).scrollTop());
@@ -104,6 +106,9 @@
               top: orig.vars.vertcalc + 10 + 'px'
           }, this.vars.speed, this.vars.easing);
           orig.vars.onClose();
+          if(orig.vars.originalFocus){
+            orig.vars.originalFocus.focus();
+          }
       },
 
 //============================================================================
