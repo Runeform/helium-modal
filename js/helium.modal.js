@@ -1,5 +1,5 @@
 /*
- * Helium Modal v1.6
+ * Helium Modal v1.7
  * Developed by Harun eggleton - Under MIT License
  * jquery 1.8.3
  * jQuery-mutate (https://github.com/jqui-dot-net/jQuery-mutate)
@@ -80,18 +80,21 @@
         $(orig.element).stop().fadeIn('fast');
         $(orig.element).css('height',$(document).height() + 'px');
         orig.vars.vertcalc = ((orig.vars.vert / 100) * $(window).height()) + ($(document).scrollTop());
-        if(orig.vars.vertcalc < $(this.element).find('.modal').outerHeight() / 2){
-            orig.vars.vertcalc = $(this.element).find('.modal').outerHeight() / 2;
+        if(orig.vars.vertcalc < ($(this.element).find('.modal').outerHeight() / 2) + $(document).scrollTop()){
+            orig.vars.vertcalc = ($(this.element).find('.modal').outerHeight() / 2) + $(document).scrollTop();
         }
-        $(this.element).find('.modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
-        $(this.element).find('.modal').stop().animate({
-            top: orig.vars.vertcalc + 'px'
-        }, this.vars.speed, this.vars.easing);
         this.calcMargin();
+        $(this.element).find('.modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
         $(this.element).find('.modal').css('left','50%');
+        $(this.element).find('.modal').css('opacity','0');
         $(this.element).find('.modal').css('margin-top', '-' + this.vars.mh + 'px');
         $(this.element).find('.modal').css('margin-left', '-' + this.vars.mw + 'px');
-        if(this.vars.trapFocus){orig.focusControl();}
+        $(this.element).find('.modal').stop().animate({
+            top: orig.vars.vertcalc + 'px',
+            opacity: 1
+        }, this.vars.speed, this.vars.easing, function(){
+            if(orig.vars.trapFocus){orig.focusControl();}
+        });
         $(orig.element).promise().done(orig.vars.afterOpen());
     },
 
