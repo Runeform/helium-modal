@@ -1,5 +1,5 @@
 /*
- * Helium Modal v1.7
+ * Helium Modal v1.8
  * Developed by Harun eggleton - Under MIT License
  * jquery 1.8.3
  * jQuery-mutate (https://github.com/jqui-dot-net/jQuery-mutate)
@@ -17,6 +17,7 @@
       onOpen: function(){ },
       afterOpen: function(){ },
       onClose: function(){ },
+      afterClose: function(){ },
       trapFocus: true
   },
   priv = {
@@ -77,25 +78,25 @@
         var orig = this;
         orig.vars.originalFocus =  $(':focus');
         orig.vars.onOpen();
-        $(orig.element).stop().fadeIn('fast');
+        $(orig.element).stop().fadeIn(400);
         $(orig.element).css('height',$(document).height() + 'px');
         orig.vars.vertcalc = ((orig.vars.vert / 100) * $(window).height()) + ($(document).scrollTop());
         if(orig.vars.vertcalc < ($(this.element).find('.modal').outerHeight() / 2) + $(document).scrollTop()){
             orig.vars.vertcalc = ($(this.element).find('.modal').outerHeight() / 2) + $(document).scrollTop();
         }
-        this.calcMargin();
-        $(this.element).find('.modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
-        $(this.element).find('.modal').css('left','50%');
-        $(this.element).find('.modal').css('opacity','0');
-        $(this.element).find('.modal').css('margin-top', '-' + this.vars.mh + 'px');
-        $(this.element).find('.modal').css('margin-left', '-' + this.vars.mw + 'px');
-        $(this.element).find('.modal').stop().animate({
+        orig.calcMargin();
+        $(orig.element).find('.modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
+        $(orig.element).find('.modal').stop().css('left','50%');
+        $(orig.element).find('.modal').stop().css('opacity','0');
+        $(orig.element).find('.modal').stop().css('margin-top', '-' + orig.vars.mh + 'px');
+        $(orig.element).find('.modal').stop().css('margin-left', '-' + orig.vars.mw + 'px');
+        $(orig.element).find('.modal').stop().animate({
             top: orig.vars.vertcalc + 'px',
             opacity: 1
-        }, this.vars.speed, this.vars.easing, function(){
+        }, orig.vars.speed, orig.vars.easing, function(){
             if(orig.vars.trapFocus){orig.focusControl();}
+            orig.vars.afterOpen();
         });
-        $(orig.element).promise().done(orig.vars.afterOpen());
     },
 
 //============================================================================
@@ -103,14 +104,15 @@
 //============================================================================
     closeModal: function () {
         var orig = this;
-        $(orig.element).stop().fadeOut('fast');
-        $(this.element).find('.modal').stop().animate({
-            top: orig.vars.vertcalc + 10 + 'px'
-        }, this.vars.speed, this.vars.easing);
         orig.vars.onClose();
-        if(orig.vars.originalFocus){
-            orig.vars.originalFocus.focus();
-        }
+        $(orig.element).find('.modal').stop().animate({
+            top: orig.vars.vertcalc + 10 + 'px',
+            opacity: 0
+        }, orig.vars.speed, orig.vars.easing);
+        $(orig.element).stop().delay(orig.vars.speed-400).fadeOut(400, function(){
+            if(orig.vars.originalFocus){orig.vars.originalFocus.focus();}
+            orig.vars.afterClose();
+        });
     },
 
 //============================================================================

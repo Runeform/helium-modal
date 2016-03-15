@@ -94,28 +94,7 @@
     <div id="modalid2" class="helium-modal">
         <div class="modal">
             content for modal #2<br>
-                content for modal #2<br>
-                    content for modal #2<br>
-                        content for modal #2<br>
-                            content for modal #2<br>
-                                content for modal #2<br>
-                                    content for modal #2<br>
-                                        content for modal #2<br>
-                                            content for modal #2<br>
-                                                content for modal #2<br>
-                                                    content for modal #2<br>
-                                                        content for modal #2<br>
-                                                            content for modal #2<br>
-                                                                content for modal #2<br>>
-                                                                    content for modal #2<br>
-                                                                        content for modal #2<br>
-                                                                            content for modal #2<br>
-                                                                                content for modal #2<br>
-                                                                                    content for modal #2<br>
-                                                                                        content for modal #2<br>
-                                                                                            content for modal #2<br>
-                                                                                                content for modal #2<br>
-                                                                                                    content for modal #2<br>
+            <p style="width:200px;">This is test content for a tall modal. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores pariatur modi harum consequatur mollitia, quibusdam impedit quod eius ipsam ducimus recusandae aperiam reiciendis laboriosam fuga asperiores voluptas aliquam inventore nam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id mollitia porro voluptatem ratione. Voluptates in commodi eligendi laudantium nisi fuga dignissimos soluta. Eos, autem. Expedita vitae quod incidunt dolorem.</p>
             <a href="" title="" class="close">additional close link</a>
             <a href="" class="close x-button">&times;</a>
         </div>
@@ -198,6 +177,43 @@
     color: #222;
     }
 </textarea>
+    <h3>...or SASS</h3>
+    <p>Here it is in SASS format</p>
+    <a href="" class="selector" title="">&#8595; select all</a>
+<textarea readonly name="" style="height:490px;">
+/* ====================================================================
+   Helium Modal styles
+   ==================================================================== */
+/* === essential styles === */
+.helium-modal{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 2000;
+    display: none;
+    .modal{
+        position: absolute;
+        left: -9999px;
+/* === customizable styles === */
+        background-color: #ffffff;
+        padding: 20px;
+        box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+        a.x-button{
+            position: absolute;
+            top:3px;
+            right:6px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            font-size: 20px;
+            line-height: 20px;
+            color: #222;
+        }
+    }
+}
+</textarea>
     <h3>4: initialize</h3>
     <p>Place the follow before the end of the BODY tag to initialize all modals</p>
     <a href="" class="selector" title="">&#8595; select all</a>
@@ -206,11 +222,13 @@
 $(function() {
     $(".helium-modal").each( function(){
         $(this).heliumModal({
-            vert: 50,
-            speed: 500,
-            easing: 'swing',
-            onOpen: function(){ },  // callback for custom JS when modal opens
-            onClose: function(){ }  // callback for custom JS when modal close
+            vert: 50,                // Vertical position on the screen in percentage.  50 centers the modal
+            speed: 500,              // Speed for appearing and disapearing animations
+            easing: 'swing',         // Easing style for animations.  use standard jquery easing options.
+            onOpen: function(){ },   // callback for custom JS before modal opens
+            afterOpen: function(){ },// callback for custom JS after modal opens
+            onClose: function(){ },  // callback for custom JS before modal closes
+            afterClose: function(){ }// callback for custom JS after modal closes
         });
     });
 });
@@ -241,12 +259,13 @@ $('#your-modal-id').heliumModal('closeModal');</textarea>
 <script type="text/javascript" charset="utf-8">
 $(function() {
     // repeat for each of your modals ===============================
-    $('#your-modal-id-1').heliumModal({
-        vert: 50,
-        speed: 500,
-        easing: 'swing',
-        onOpen: function(){ },  // callback for custom JS when modal opens
-        onClose: function(){ }  // callback for custom JS when modal close
+    vert: 50,                // Vertical position on the screen in percentage.  50 centers the modal
+    speed: 500,              // Speed for appearing and disapearing animations
+    easing: 'swing',         // Easing style for animations.  use standard jquery easing options.
+    onOpen: function(){ },   // callback for custom JS before modal opens
+    afterOpen: function(){ },// callback for custom JS after modal opens
+    onClose: function(){ },  // callback for custom JS before modal closes
+    afterClose: function(){ }// callback for custom JS after modal closes
     });
     // end repeat ===================================================
 });
@@ -258,13 +277,7 @@ $(function() {
     <script type="text/javascript" charset="utf-8">
     $(function() {
         $(".helium-modal").each( function(){
-            $(this).heliumModal({
-                vert: 50,
-                speed: 500,
-                easing: 'swing',
-                onOpen: function(){ },
-                onClose: function(){ }
-            });
+            $(this).heliumModal();
         });
     });
     $('.selector').click(function(){
