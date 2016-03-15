@@ -1,5 +1,5 @@
 /*
- * Helium Modal v1.8
+ * Helium Modal v1.9
  * Developed by Harun eggleton - Under MIT License
  * jquery 1.8.3
  * jQuery-mutate (https://github.com/jqui-dot-net/jQuery-mutate)
@@ -86,11 +86,11 @@
         }
         orig.calcMargin();
         $(orig.element).find('.modal').stop().css('top', orig.vars.vertcalc - 10 +'px');
-        $(orig.element).find('.modal').stop().css('left','50%');
-        $(orig.element).find('.modal').stop().css('opacity','0');
-        $(orig.element).find('.modal').stop().css('margin-top', '-' + orig.vars.mh + 'px');
-        $(orig.element).find('.modal').stop().css('margin-left', '-' + orig.vars.mw + 'px');
-        $(orig.element).find('.modal').stop().animate({
+        $(orig.element).find('.modal').css('left','50%');
+        $(orig.element).find('.modal').css('opacity','0');
+        $(orig.element).find('.modal').css('margin-top', '-' + orig.vars.mh + 'px');
+        $(orig.element).find('.modal').css('margin-left', '-' + orig.vars.mw + 'px');
+        $(orig.element).find('.modal').animate({
             top: orig.vars.vertcalc + 'px',
             opacity: 1
         }, orig.vars.speed, orig.vars.easing, function(){
@@ -120,8 +120,8 @@
 // (animates margins to recenter modal)
 //============================================================================
     centerModal: function () {
-        $(this.element).find('.modal').stop().css('margin-top', '-' + this.vars.mh.toFixed() + 'px');
-        $(this.element).find('.modal').stop().css('margin-left', '-' + this.vars.mw.toFixed() + 'px');
+        $(this.element).find('.modal').css('margin-top', '-' + this.vars.mh.toFixed() + 'px');
+        $(this.element).find('.modal').css('margin-left', '-' + this.vars.mw.toFixed() + 'px');
     },
 
 //============================================================================
